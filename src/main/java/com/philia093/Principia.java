@@ -1,5 +1,7 @@
 package com.philia093;
 
+import com.philia093.blocks.ModBlocks;
+import com.philia093.items.ModItemGroups;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -11,5 +13,7 @@ public class Principia implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		ModBlocks.registerModBlocks();
+		ModItemGroups.registerModItemGroups();
 	}
 }
