@@ -1,0 +1,24 @@
+{
+	"schemaVersion": 1,
+	"id": "principia",
+	"version": "${version}",
+	"name": "Principia",
+	"description": "A mod about rocket science!",
+	"authors": [
+		"PhiLia093"
+	],
+	"license": "GPL-v3",
+	"icon": "assets/modid/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.philia093.Principia"
+		]
+	},
+	"depends": {
+		"fabricloader": ">=0.18.6",
+		"minecraft": "~1.20.1",
+		"java": ">=17",
+		"fabric-api": "*"
+	}
+}
