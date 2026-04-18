@@ -13,7 +13,7 @@
 	"entrypoints": {
 		"main": [
 			"com.philia093.Principia"
-		],
+		]
 	},
 	"depends": {
 		"fabricloader": ">=0.16.14",
