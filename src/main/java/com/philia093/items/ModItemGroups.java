@@ -2,6 +2,8 @@ package com.philia093.items;
 
 import com.philia093.Principia;
 import com.philia093.blocks.ModBlocks;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.Registries;
@@ -16,25 +18,20 @@ public class ModItemGroups {
                     .displayName(Text.translatable("itemGroup.ores"))
                     .icon(() -> new ItemStack(ModBlocks.APATITE_ORE))
                     .entries((displayContext, entries) -> {
-                        entries.add(ModBlocks.APATITE_ORE);
-                        entries.add(ModBlocks.BAUXITE_ORE);
-                        entries.add(ModBlocks.CASSITERITE_ORE);
-                        entries.add(ModBlocks.CHALCOPYRITE_ORE);
-                        entries.add(ModBlocks.CHROMITE_ORE);
-                        entries.add(ModBlocks.FLUORITE_ORE);
-                        entries.add(ModBlocks.GALENA_ORE);
-                        entries.add(ModBlocks.ILMENITE_ORE);
-                        entries.add(ModBlocks.LIGNITE_ORE);
-                        entries.add(ModBlocks.LIMESTONE_ORE);
-                        entries.add(ModBlocks.MAGNETITE_ORE);
-                        entries.add(ModBlocks.MALACHITE_ORE);
-                        entries.add(ModBlocks.MONAZITE_ORE);
-                        entries.add(ModBlocks.PENTLANDITE_ORE);
-                        entries.add(ModBlocks.PYROLUSITE_ORE);
-                        entries.add(ModBlocks.ROCK_SALT_ORE);
-                        entries.add(ModBlocks.SPHALERITE_ORE);
-                        entries.add(ModBlocks.SULFUR_ORE);
-                        entries.add(ModBlocks.VANADINITE_ORE);
+                        for (Block ore : ModBlocks.ALL_ORES) {
+                            entries.add(ore);
+                        }
+                    }).build());
+
+    public static final ItemGroup MATERIALS = Registry.register(Registries.ITEM_GROUP,
+            new Identifier(Principia.MOD_ID, "materials"),
+            ItemGroup.create(null, -1)
+                    .displayName(Text.translatable("itemGroup.materials"))
+                    .icon(() -> new ItemStack(ModItems.CRUSHED_MAGNETITE))
+                    .entries((displayContext, entries) -> {
+                        for (Item item : ModItems.ALL_CRUSHED_ORES) {
+                            entries.add(item);
+                        }
                     }).build());
 
     public static void registerModItemGroups(){

@@ -52,6 +52,15 @@ public class ModBlocks {
     public static final Block VANADINITE_ORE = registerBlocks("vanadinite_ore",
             new Block(FabricBlockSettings.copyOf(Blocks.IRON_ORE).strength(4.0f)));
 
+
+    public static final Block[] ALL_ORES = {
+            APATITE_ORE, BAUXITE_ORE, CASSITERITE_ORE, CHALCOPYRITE_ORE,
+            CHROMITE_ORE, FLUORITE_ORE, GALENA_ORE, ILMENITE_ORE,
+            LIGNITE_ORE, LIMESTONE_ORE, MAGNETITE_ORE, MALACHITE_ORE,
+            MONAZITE_ORE, PENTLANDITE_ORE, PYROLUSITE_ORE, ROCK_SALT_ORE,
+            SPHALERITE_ORE, SULFUR_ORE, VANADINITE_ORE
+    };
+
     private static Block registerBlocksWithoutItem(String name, Block block) {
         return Registry.register(Registries.BLOCK, new Identifier(Principia.MOD_ID, name), block);
     }

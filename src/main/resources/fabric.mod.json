@@ -13,6 +13,9 @@
 	"entrypoints": {
 		"main": [
 			"com.philia093.Principia"
+		],
+		"client": [
+			"com.philia093.client.PrincipiaClient"
 		]
 	},
 	"depends": {

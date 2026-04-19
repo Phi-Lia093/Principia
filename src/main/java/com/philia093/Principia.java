@@ -1,9 +1,13 @@
 package com.philia093;
 
 import com.philia093.blocks.ModBlocks;
+import com.philia093.items.ChemicalFormulaTooltip;
 import com.philia093.items.ModItemGroups;
+import com.philia093.items.ModItems;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
 
+import net.fabricmc.loader.api.FabricLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +18,11 @@ public class Principia implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		ModBlocks.registerModBlocks();
+
+		if(FabricLoader.getInstance().getEnvironmentType()== EnvType.CLIENT){
+			ChemicalFormulaTooltip.registerChemicalFormula();
+		}
 		ModItemGroups.registerModItemGroups();
+		ModItems.registerModItems();
 	}
 }
