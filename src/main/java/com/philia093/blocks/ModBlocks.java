@@ -11,6 +11,9 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModBlocks {
+    // machines
+    public static final Block MACERATOR = registerBlocks("macerator",
+            new MaceratorBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4.0f).requiresTool()));
 
     // ores
     public static final Block APATITE_ORE = registerBlocks("apatite_ore",

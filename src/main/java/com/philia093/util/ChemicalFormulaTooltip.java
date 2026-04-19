@@ -1,6 +1,8 @@
-package com.philia093.items;
+package com.philia093.util;
 
 import com.philia093.blocks.ModBlocks;
+import com.philia093.items.CrushedOreItem;
+import com.philia093.items.ModItems;
 import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;

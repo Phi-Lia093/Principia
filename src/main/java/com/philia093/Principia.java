@@ -1,8 +1,10 @@
 package com.philia093;
 
+import com.philia093.blocks.ModBlockEntities;
 import com.philia093.blocks.ModBlocks;
-import com.philia093.items.ChemicalFormulaTooltip;
-import com.philia093.items.ModItemGroups;
+import com.philia093.client.render.ModScreenHandlers;
+import com.philia093.util.ChemicalFormulaTooltip;
+import com.philia093.util.ModItemGroups;
 import com.philia093.items.ModItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.ModInitializer;
@@ -24,5 +26,7 @@ public class Principia implements ModInitializer {
 		}
 		ModItemGroups.registerModItemGroups();
 		ModItems.registerModItems();
+		ModBlockEntities.registerModBlockEntities();
+		ModScreenHandlers.registerModScreenHandlers();
 	}
 }

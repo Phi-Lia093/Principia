@@ -1,7 +1,8 @@
-package com.philia093.items;
+package com.philia093.util;
 
 import com.philia093.Principia;
 import com.philia093.blocks.ModBlocks;
+import com.philia093.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -33,6 +34,26 @@ public class ModItemGroups {
                             entries.add(item);
                         }
                     }).build());
+
+    public static final ItemGroup TOOLS = Registry.register(Registries.ITEM_GROUP,
+            new Identifier(Principia.MOD_ID, "tools"),
+            ItemGroup.create(null, -1)
+                    .displayName(Text.translatable("itemGroup.tools"))
+                    .icon(() -> new ItemStack(ModItems.DRY_BATTERY))
+                    .entries((displayContext, entries) -> {
+                        entries.add(ModItems.DRY_BATTERY);
+                    }).build());
+
+    public static final ItemGroup MACHINES = Registry.register(Registries.ITEM_GROUP,
+            new Identifier(Principia.MOD_ID, "machines"),
+            ItemGroup.create(null, -1)
+                    .displayName(Text.translatable("itemGroup.machines"))
+                    .icon(() -> new ItemStack(ModBlocks.MACERATOR.asItem()))
+                    .entries((displayContext, entries) -> {
+                        entries.add(ModBlocks.MACERATOR.asItem());
+                    }).build());
+
+
 
     public static void registerModItemGroups(){
         Principia.LOGGER.info("registering itemgroups");

@@ -1,12 +1,16 @@
 package com.philia093.items;
 
 import com.philia093.Principia;
+import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.item.Item;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModItems {
+
+    public static final Item DRY_BATTERY = register("dry_battery",
+            new AbstractBatteryItem(new FabricItemSettings(), 10000, false, true));
 
     public static final Item CRUSHED_MAGNETITE = registerCrushedOre(CrushedOreType.MAGNETITE);
     public static final Item CRUSHED_NATIVE_COPPER = registerCrushedOre(CrushedOreType.NATIVE_COPPER);
