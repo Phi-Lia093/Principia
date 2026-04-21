@@ -1,0 +1,11 @@
+{
+  "type": "principia:machine",
+  "inputs": [
+    { "item": "minecraft:iron_ore" }
+  ],
+  "outputs": [
+    { "item": "principia:crushed_magnetite", "count": 2 }
+  ],
+  "processingTime": 20,
+  "power": 0
+}

@@ -10,7 +10,6 @@ import net.minecraft.screen.PropertyDelegate;
 import net.minecraft.screen.ScreenHandler;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.screen.slot.Slot;
-import net.minecraft.screen.slot.SlotActionType;
 
 public abstract class AbstractMachineScreenHandler extends ScreenHandler {
     protected final Inventory inventory;
@@ -24,6 +23,7 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
                 new ArrayPropertyDelegate(2), inputSlots, outputSlots);
     }
 
+    // 在构造函数中确保添加了 propertyDelegate 的同步
     protected AbstractMachineScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory,
                                            Inventory inventory, PropertyDelegate delegate,
                                            int inputSlots, int outputSlots) {
@@ -35,10 +35,9 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
 
         checkSize(inventory, inputSlots + outputSlots);
         inventory.onOpen(playerInventory.player);
-        this.addProperties(delegate);
-
-        // 子类需要调用 setupMachineSlots() 和 addPlayerSlots()
+        this.addProperties(delegate);  // 关键：这行确保进度同步
     }
+
 
     protected void setupMachineSlots(int startX, int startY, int spacingX, int spacingY) {
         // 输入槽
@@ -74,7 +73,7 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
         ItemStack newStack = ItemStack.EMPTY;
         Slot slot = this.slots.get(invSlot);
 
-        if (slot != null && slot.hasStack()) {
+        if (slot.hasStack()) {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
 
@@ -119,5 +118,10 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
         public boolean canInsert(ItemStack stack) {
             return false;
         }
+    }
+
+    // 添加获取当前配方处理时间的方法
+    public int getCurrentMaxProgress() {
+        return propertyDelegate.get(1);
     }
 }

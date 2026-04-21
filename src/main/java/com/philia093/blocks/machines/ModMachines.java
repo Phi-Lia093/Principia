@@ -18,49 +18,34 @@ import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 
 public class ModMachines {
-    // 机器方块
-    public static final Block MACERATOR = registerMachine("macerator",
-            new MaceratorBlock(FabricBlockSettings.copyOf(Blocks.STONE).strength(4.0f).requiresTool()),
-            MaceratorBlockEntity::new);
 
-    // ✅ 暴露物品实例供 ItemGroup 使用
-    public static final Item MACERATOR_ITEM = MACERATOR.asItem();
+    // ========== Macerator ==========
+    public static final Block MACERATOR = new MaceratorBlock(
+            FabricBlockSettings.copyOf(Blocks.STONE).strength(4.0f).requiresTool()
+    );
 
-    // ScreenHandler 注册
+    public static final Item MACERATOR_ITEM = new BlockItem(MACERATOR, new Item.Settings());
+
     public static final ScreenHandlerType<MaceratorScreenHandler> MACERATOR_SCREEN_HANDLER =
             ScreenHandlerRegistry.registerSimple(
                     new Identifier(Principia.MOD_ID, "macerator"),
-                    (syncId, inventory) -> new MaceratorScreenHandler(syncId, inventory)
+                    MaceratorScreenHandler::new
             );
 
-    // BlockEntity 类型
-    public static BlockEntityType<MaceratorBlockEntity> MACERATOR_BLOCK_ENTITY;
+    public static final BlockEntityType<MaceratorBlockEntity> MACERATOR_BLOCK_ENTITY =
+            FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, MACERATOR).build();
 
-    private static Block registerMachine(String name, Block block,
-                                         FabricBlockEntityTypeBuilder.Factory<? extends AbstractMachineBlockEntity> entityFactory) {
+    // ========== 注册方法 ==========
+    public static void registerMachines() {
         // 注册方块
-        Registry.register(Registries.BLOCK, new Identifier(Principia.MOD_ID, name), block);
+        Registry.register(Registries.BLOCK, new Identifier(Principia.MOD_ID, "macerator"), MACERATOR);
 
-        // ✅ 注册物品 (BlockItem)
-        Registry.register(Registries.ITEM, new Identifier(Principia.MOD_ID, name),
-                new BlockItem(block, new Item.Settings()));
+        // 注册物品
+        Registry.register(Registries.ITEM, new Identifier(Principia.MOD_ID, "macerator"), MACERATOR_ITEM);
 
         // 注册方块实体
-        BlockEntityType<?> entityType = Registry.register(
-                Registries.BLOCK_ENTITY_TYPE,
-                new Identifier(Principia.MOD_ID, name),
-                FabricBlockEntityTypeBuilder.create(entityFactory, block).build()
-        );
+        Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Principia.MOD_ID, "macerator"), MACERATOR_BLOCK_ENTITY);
 
-        // 存储特定类型的 BlockEntity
-        if (block instanceof MaceratorBlock) {
-            MACERATOR_BLOCK_ENTITY = (BlockEntityType<MaceratorBlockEntity>) entityType;
-        }
-
-        return block;
-    }
-
-    public static void registerMachines() {
         Principia.LOGGER.info("Registering machines");
     }
 }

@@ -1,10 +1,9 @@
 package com.philia093.blocks.machines;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.BlockWithEntity;
-import net.minecraft.block.HorizontalFacingBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityTicker;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.screen.NamedScreenHandlerFactory;
@@ -18,6 +17,7 @@ import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.Nullable;
 
 public abstract class AbstractMachineBlock extends BlockWithEntity {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
@@ -41,26 +41,26 @@ public abstract class AbstractMachineBlock extends BlockWithEntity {
     }
 
     @Override
+    public BlockRenderType getRenderType(BlockState state) {
+        return BlockRenderType.MODEL;
+    }
+
+    @SuppressWarnings("deprecated")
+    @Override
     public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit) {
         if (!world.isClient) {
-            NamedScreenHandlerFactory screenHandlerFactory = state.createScreenHandlerFactory(world, pos);
-            if (screenHandlerFactory != null) {
-                player.openHandledScreen(screenHandlerFactory);
+            BlockEntity blockEntity = world.getBlockEntity(pos);
+            if (blockEntity instanceof NamedScreenHandlerFactory) {
+                player.openHandledScreen((NamedScreenHandlerFactory) blockEntity);
             }
         }
         return ActionResult.SUCCESS;
     }
 
+    @Nullable
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-        if (!state.isOf(newState.getBlock())) {
-            BlockEntity blockEntity = world.getBlockEntity(pos);
-            if (blockEntity instanceof AbstractMachineBlockEntity) {
-                // 掉落所有物品
-                ((AbstractMachineBlockEntity) blockEntity).dropInventory(world, pos);
-            }
-            super.onStateReplaced(state, world, pos, newState, moved);
-        }
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(World world, BlockState state, BlockEntityType<T> type) {
+        return null;
     }
 
     // 子类需要实现的方法

@@ -8,15 +8,17 @@ import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
 
 public class ModRecipeTypes {
-    public static final RecipeType<MachineRecipe> MACERATOR_RECIPE_TYPE = register("macerator");
+    public static final RecipeType<MachineRecipe> MACHINE = register("machine");
 
     private static <T extends Recipe<?>> RecipeType<T> register(String id) {
-        return Registry.register(Registries.RECIPE_TYPE, new Identifier(Principia.MOD_ID, id), new RecipeType<T>() {
-            @Override
-            public String toString() {
-                return new Identifier(Principia.MOD_ID, id).toString();
-            }
-        });
+        return Registry.register(Registries.RECIPE_TYPE,
+                new Identifier(Principia.MOD_ID, id),
+                new RecipeType<T>() {
+                    @Override
+                    public String toString() {
+                        return new Identifier(Principia.MOD_ID, id).toString();
+                    }
+                });
     }
 
     public static void registerRecipeTypes() {

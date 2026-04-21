@@ -1,10 +1,7 @@
 package com.philia093.client;
 
-import com.philia093.blocks.machines.ModMachines;
 import com.philia093.client.render.CrushedOreItemRenderer;
-import com.philia093.client.render.MaceratorScreen;
 import net.fabricmc.api.ClientModInitializer;
-import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 
 public class PrincipiaClient implements ClientModInitializer {
     @Override
@@ -12,6 +9,6 @@ public class PrincipiaClient implements ClientModInitializer {
         CrushedOreItemRenderer.register();
 
         // 注册机器的屏幕
-        ScreenRegistry.register(ModMachines.MACERATOR_SCREEN_HANDLER, MaceratorScreen::new);
+        ModMachinesClient.registerScreens();
     }
 }
