@@ -10,7 +10,6 @@ public class MaceratorScreen extends AbstractMachineScreen<MaceratorScreenHandle
 
     public MaceratorScreen(MaceratorScreenHandler handler, PlayerInventory inventory, Text title) {
         super(handler, inventory, title, TEXTURE);
-        // 可自定义进度条位置
         this.progressBarX = 79;
         this.progressBarY = 35;
     }

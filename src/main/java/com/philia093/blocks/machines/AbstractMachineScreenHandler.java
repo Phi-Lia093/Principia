@@ -23,7 +23,6 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
                 new ArrayPropertyDelegate(2), inputSlots, outputSlots);
     }
 
-    // 在构造函数中确保添加了 propertyDelegate 的同步
     protected AbstractMachineScreenHandler(ScreenHandlerType<?> type, int syncId, PlayerInventory playerInventory,
                                            Inventory inventory, PropertyDelegate delegate,
                                            int inputSlots, int outputSlots) {
@@ -35,19 +34,17 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
 
         checkSize(inventory, inputSlots + outputSlots);
         inventory.onOpen(playerInventory.player);
-        this.addProperties(delegate);  // 关键：这行确保进度同步
+        this.addProperties(delegate);
     }
 
 
     protected void setupMachineSlots(int startX, int startY, int spacingX, int spacingY) {
-        // 输入槽
         for (int i = 0; i < inputSlotCount; i++) {
             int x = startX + (i * spacingX);
             int y = startY;
             this.addSlot(new Slot(inventory, i, x, y));
         }
 
-        // 输出槽
         for (int i = 0; i < outputSlotCount; i++) {
             int x = startX + ((inputSlotCount + i) * spacingX);
             int y = startY;
@@ -56,13 +53,11 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
     }
 
     protected void addPlayerSlots(PlayerInventory playerInventory, int playerInvY, int hotbarY) {
-        // 玩家背包
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
                 this.addSlot(new Slot(playerInventory, j + i * 9 + 9, 8 + j * 18, playerInvY + i * 18));
             }
         }
-        // 快捷栏
         for (int i = 0; i < 9; ++i) {
             this.addSlot(new Slot(playerInventory, i, 8 + i * 18, hotbarY));
         }
@@ -77,14 +72,11 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
             ItemStack originalStack = slot.getStack();
             newStack = originalStack.copy();
 
-            // 机器槽位 -> 玩家背包
             if (invSlot < inputSlotCount + outputSlotCount) {
                 if (!this.insertItem(originalStack, inputSlotCount + outputSlotCount, this.slots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-            }
-            // 玩家背包 -> 机器输入槽
-            else {
+            } else {
                 if (!this.insertItem(originalStack, 0, inputSlotCount, false)) {
                     return ItemStack.EMPTY;
                 }
@@ -108,7 +100,6 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
     public int getProgress() { return propertyDelegate.get(0); }
     public int getMaxProgress() { return propertyDelegate.get(1); }
 
-    // 输出槽专用类
     protected static class MachineOutputSlot extends Slot {
         public MachineOutputSlot(Inventory inventory, int index, int x, int y) {
             super(inventory, index, x, y);
@@ -120,7 +111,6 @@ public abstract class AbstractMachineScreenHandler extends ScreenHandler {
         }
     }
 
-    // 添加获取当前配方处理时间的方法
     public int getCurrentMaxProgress() {
         return propertyDelegate.get(1);
     }

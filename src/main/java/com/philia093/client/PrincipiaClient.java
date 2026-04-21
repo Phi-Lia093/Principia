@@ -8,7 +8,6 @@ public class PrincipiaClient implements ClientModInitializer {
     public void onInitializeClient() {
         CrushedOreItemRenderer.register();
 
-        // 注册机器的屏幕
         ModMachinesClient.registerScreens();
     }
 }

@@ -19,11 +19,9 @@ public class Principia implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-		// 注册配方系统
 		ModRecipeTypes.registerRecipeTypes();
 		ModRecipeSerializers.registerSerializers();
 
-		// 注册机器
 		ModMachines.registerMachines();
 		ModBlocks.registerModBlocks();
 

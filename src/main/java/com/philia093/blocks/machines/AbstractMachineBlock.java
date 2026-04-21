@@ -63,7 +63,6 @@ public abstract class AbstractMachineBlock extends BlockWithEntity {
         return null;
     }
 
-    // 子类需要实现的方法
     public abstract Text getDisplayName();
     public abstract int getInputSlotCount();
     public abstract int getOutputSlotCount();

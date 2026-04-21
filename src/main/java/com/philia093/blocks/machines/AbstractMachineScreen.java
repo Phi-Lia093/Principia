@@ -22,7 +22,6 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
         this.backgroundHeight = 166;
         this.playerInventoryTitleY = this.backgroundHeight - 94;
 
-        // 默认进度条位置
         this.progressBarX = 79;
         this.progressBarY = 35;
         this.progressBarWidth = 24;
@@ -36,13 +35,10 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
         int x = (this.width - this.backgroundWidth) / 2;
         int y = (this.height - this.backgroundHeight) / 2;
 
-        // 绘制背景
         context.drawTexture(texture, x, y, 0, 0, this.backgroundWidth, this.backgroundHeight);
 
-        // 绘制进度条
         drawProgressBar(context, x, y);
 
-        // 子类可添加额外的渲染
         drawExtraElements(context, x, y);
     }
 
@@ -58,7 +54,6 @@ public abstract class AbstractMachineScreen<T extends AbstractMachineScreenHandl
     }
 
     protected void drawExtraElements(DrawContext context, int x, int y) {
-        // 子类可重写此方法添加额外渲染
     }
 
     @Override

@@ -14,10 +14,10 @@ import java.util.List;
 
 public class MachineRecipe implements Recipe<Inventory> {
     private final Identifier id;
-    private final List<Ingredient> inputs;      // 多个输入
-    private final List<ItemStack> outputs;      // 多个输出
-    private final int processingTime;            // 加工时间
-    private final int powerRequired;             // 所需能量（为供电接口预留）
+    private final List<Ingredient> inputs;
+    private final List<ItemStack> outputs;
+    private final int processingTime;
+    private final int powerRequired;
 
     public MachineRecipe(Identifier id, List<Ingredient> inputs, List<ItemStack> outputs,
                          int processingTime, int powerRequired) {
@@ -30,7 +30,6 @@ public class MachineRecipe implements Recipe<Inventory> {
 
     @Override
     public boolean matches(Inventory inventory, World world) {
-        // 检查所有输入槽位是否匹配
         for (int i = 0; i < inputs.size(); i++) {
             ItemStack stack = inventory.getStack(i);
             if (!inputs.get(i).test(stack)) {
@@ -42,7 +41,6 @@ public class MachineRecipe implements Recipe<Inventory> {
 
     @Override
     public ItemStack craft(Inventory inventory, DynamicRegistryManager registryManager) {
-        // 返回第一个输出（用于显示）
         return outputs.isEmpty() ? ItemStack.EMPTY : outputs.get(0).copy();
     }
 
@@ -75,7 +73,6 @@ public class MachineRecipe implements Recipe<Inventory> {
         return ModRecipeTypes.MACHINE;
     }
 
-    // Getters
     public List<Ingredient> getInputs() { return inputs; }
     public int getProcessingTime() { return processingTime; }
     public int getPowerRequired() { return powerRequired; }

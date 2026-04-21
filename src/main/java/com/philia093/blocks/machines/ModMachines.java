@@ -19,7 +19,6 @@ import net.minecraft.util.Identifier;
 
 public class ModMachines {
 
-    // ========== Macerator ==========
     public static final Block MACERATOR = new MaceratorBlock(
             FabricBlockSettings.copyOf(Blocks.STONE).strength(4.0f).requiresTool()
     );
@@ -35,15 +34,11 @@ public class ModMachines {
     public static final BlockEntityType<MaceratorBlockEntity> MACERATOR_BLOCK_ENTITY =
             FabricBlockEntityTypeBuilder.create(MaceratorBlockEntity::new, MACERATOR).build();
 
-    // ========== 注册方法 ==========
     public static void registerMachines() {
-        // 注册方块
         Registry.register(Registries.BLOCK, new Identifier(Principia.MOD_ID, "macerator"), MACERATOR);
 
-        // 注册物品
         Registry.register(Registries.ITEM, new Identifier(Principia.MOD_ID, "macerator"), MACERATOR_ITEM);
 
-        // 注册方块实体
         Registry.register(Registries.BLOCK_ENTITY_TYPE, new Identifier(Principia.MOD_ID, "macerator"), MACERATOR_BLOCK_ENTITY);
 
         Principia.LOGGER.info("Registering machines");

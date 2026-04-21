@@ -32,7 +32,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
     protected int progress = 0;
     protected Recipe<?> currentRecipe;
 
-    // 添加 PropertyDelegate 用于进度条同步
     protected final PropertyDelegate propertyDelegate;
 
     protected final int inputSlotCount;
@@ -47,7 +46,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         this.totalSlots = inputSlots + outputSlots;
         this.inventory = DefaultedList.ofSize(totalSlots, ItemStack.EMPTY);
 
-        // 初始化 PropertyDelegate
         this.propertyDelegate = new PropertyDelegate() {
             @Override
             public int get(int index) {
@@ -72,10 +70,8 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         };
     }
 
-    // 抽象方法 - 子类必须实现
     public abstract RecipeType<?> getRecipeType();
 
-    // 获取当前配方的加工时间（子类可重写）
     public int getCurrentMaxProgress() {
         if (currentRecipe instanceof MachineRecipe) {
             return ((MachineRecipe) currentRecipe).getProcessingTime();
@@ -83,23 +79,18 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         return 100;
     }
 
-    // 检查是否有足够能量（子类可重写）
     protected boolean hasEnoughPower(int amount) {
-        return true; // 默认永远有电，子类可重写实现能量系统
+        return true;
     }
 
-    // 消耗能量（子类可重写）
     protected void consumePower(int amount) {
-        // 默认不消耗，子类可重写
     }
 
-    // 检查是否可以加工
     public boolean canProcess(Recipe<?> recipe) {
         if (!(recipe instanceof MachineRecipe machineRecipe)) return false;
 
         List<Ingredient> inputs = machineRecipe.getInputs();
 
-        // 检查输入槽是否有足够物品
         for (int i = 0; i < inputs.size(); i++) {
             if (i >= inputSlotCount) return false;
             ItemStack stack = getStack(i);
@@ -108,7 +99,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
             }
         }
 
-        // 检查输出槽空间
         List<ItemStack> outputs = machineRecipe.getAllOutputs();
         for (int i = 0; i < outputs.size(); i++) {
             if (i >= outputSlotCount) return false;
@@ -122,15 +112,12 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
             }
         }
 
-        // 检查能量
         return hasEnoughPower(machineRecipe.getPowerRequired());
     }
 
-    // 执行加工
     public void processRecipe(Recipe<?> recipe) {
         if (!(recipe instanceof MachineRecipe machineRecipe)) return;
 
-        // 消耗输入槽的物品
         List<Ingredient> inputs = machineRecipe.getInputs();
         for (int i = 0; i < inputs.size(); i++) {
             ItemStack stack = getStack(i);
@@ -139,7 +126,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
             }
         }
 
-        // 生成输出
         List<ItemStack> outputs = machineRecipe.getAllOutputs();
         for (int i = 0; i < outputs.size(); i++) {
             int slot = inputSlotCount + i;
@@ -153,20 +139,17 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
             }
         }
 
-        // 消耗能量
         consumePower(machineRecipe.getPowerRequired());
 
         markDirty();
     }
 
-    // 静态 Tick 方法
     public static void tick(World world, BlockPos pos, BlockState state, AbstractMachineBlockEntity entity) {
         if (world.isClient) return;
 
         boolean wasActive = state.get(AbstractMachineBlock.ACTIVE);
         boolean isActive = false;
 
-        // 查找配方
         Optional<MachineRecipe> optionalRecipe = findRecipe(entity);
 
         if (optionalRecipe.isPresent()) {
@@ -196,20 +179,17 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
             entity.currentRecipe = null;
         }
 
-        // 更新方块状态
         if (wasActive != isActive) {
             state = state.with(AbstractMachineBlock.ACTIVE, isActive);
             world.setBlockState(pos, state, 3);
         }
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     protected static Optional<MachineRecipe> findRecipe(AbstractMachineBlockEntity entity) {
         if (entity.world == null) return Optional.empty();
 
         RecipeManager recipeManager = entity.world.getRecipeManager();
 
-        // 使用 ModRecipeTypes.MACHINE 来查找
         List<MachineRecipe> recipes = recipeManager.getAllMatches(
                 ModRecipeTypes.MACHINE,
                 entity,
@@ -219,7 +199,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         return recipes.isEmpty() ? Optional.empty() : Optional.of(recipes.get(0));
     }
 
-    // 掉落物品
     public void dropInventory(World world, BlockPos pos) {
         for (ItemStack stack : inventory) {
             if (!stack.isEmpty()) {
@@ -228,7 +207,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         }
     }
 
-    // ========== Inventory 接口实现 ==========
     @Override
     public int size() {
         return totalSlots;
@@ -279,7 +257,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         markDirty();
     }
 
-    // ========== SidedInventory 接口实现 ==========
     @Override
     public int[] getAvailableSlots(Direction side) {
         int[] slots = new int[totalSlots];
@@ -299,7 +276,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         return slot >= inputSlotCount;
     }
 
-    // ========== NBT 持久化 ==========
     @Override
     public void writeNbt(NbtCompound nbt) {
         super.writeNbt(nbt);
@@ -314,7 +290,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         progress = nbt.getInt("Progress");
     }
 
-    // ========== Getters ==========
     public int getProgress() {
         return progress;
     }
@@ -341,7 +316,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
 
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        // 子类需要重写此方法
         return null;
     }
 }
