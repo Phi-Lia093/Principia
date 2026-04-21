@@ -2,6 +2,7 @@ package com.philia093.util;
 
 import com.philia093.Principia;
 import com.philia093.blocks.ModBlocks;
+import com.philia093.blocks.machines.ModMachines;
 import com.philia093.items.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -48,9 +49,9 @@ public class ModItemGroups {
             new Identifier(Principia.MOD_ID, "machines"),
             ItemGroup.create(null, -1)
                     .displayName(Text.translatable("itemGroup.machines"))
-                    .icon(() -> new ItemStack(ModBlocks.MACERATOR.asItem()))
+                    .icon(() -> new ItemStack(ModMachines.MACERATOR_ITEM))
                     .entries((displayContext, entries) -> {
-                        entries.add(ModBlocks.MACERATOR.asItem());
+                        entries.add(ModMachines.MACERATOR_ITEM);
                     }).build());
 
 

@@ -1,94 +1,41 @@
 package com.philia093.blocks;
 
+import com.philia093.blocks.machines.AbstractMachineBlockEntity;
+import com.philia093.blocks.machines.ModMachines;
+import com.philia093.blocks.machines.ModRecipeTypes;
+import com.philia093.client.render.MaceratorScreenHandler;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.Inventories;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NbtCompound;
-import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.recipe.RecipeType;
+import net.minecraft.screen.ArrayPropertyDelegate;
+import net.minecraft.screen.NamedScreenHandlerFactory;
+import net.minecraft.screen.ScreenHandler;
+import net.minecraft.text.Text;
 import net.minecraft.util.math.BlockPos;
 
-public class MaceratorBlockEntity extends BlockEntity implements Inventory {
-    private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
-
+public class MaceratorBlockEntity extends AbstractMachineBlockEntity implements NamedScreenHandlerFactory {
     public MaceratorBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.MACERATOR_BLOCK_ENTITY, pos, state);
+        super(ModMachines.MACERATOR_BLOCK_ENTITY, pos, state, 2, 1);
     }
 
     @Override
-    public void writeNbt(NbtCompound nbt) {
-        super.writeNbt(nbt);
-        Inventories.writeNbt(nbt, this.inventory);
+    public RecipeType<?> getRecipeType() {
+        return ModRecipeTypes.MACERATOR_RECIPE_TYPE;
     }
 
     @Override
-    public void readNbt(NbtCompound nbt) {
-        super.readNbt(nbt);
-        Inventories.readNbt(nbt, this.inventory);
+    public int getProcessingTime() {
+        return 100;
     }
 
     @Override
-    public int size() {
-        return 3;
+    public Text getDisplayName() {
+        return Text.translatable("block.principia.macerator");
     }
 
     @Override
-    public boolean isEmpty() {
-        return this.inventory.stream().allMatch(ItemStack::isEmpty);
-    }
-
-    @Override
-    public ItemStack getStack(int slot) {
-        return this.inventory.get(slot);
-    }
-
-    @Override
-    public ItemStack removeStack(int slot, int amount) {
-        ItemStack result = Inventories.splitStack(this.inventory, slot, amount);
-        if (!result.isEmpty()) {
-            this.markDirty();
-        }
-        return result;
-    }
-
-    @Override
-    public ItemStack removeStack(int slot) {
-        return Inventories.removeStack(this.inventory, slot);
-    }
-
-    @Override
-    public void setStack(int slot, ItemStack stack) {
-        this.inventory.set(slot, stack);
-        if (stack.getCount() > this.getMaxCountPerStack()) {
-            stack.setCount(this.getMaxCountPerStack());
-        }
-        this.markDirty();
-    }
-
-    @Override
-    public boolean canPlayerUse(PlayerEntity player) {
-        return Inventory.canPlayerUse(this, player);
-    }
-
-    @Override
-    public void clear() {
-        this.inventory.clear();
-    }
-
-    @Override
-    public boolean isValid(int slot, ItemStack stack) {
-        return slot != 2;
-    }
-
-    @Override
-    public void onOpen(PlayerEntity player) {
-        Inventory.super.onOpen(player);
-    }
-
-    @Override
-    public NbtCompound toInitialChunkDataNbt() {
-        return createNbt();
+    public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
+        return new MaceratorScreenHandler(syncId, inv, this, new ArrayPropertyDelegate(2));
     }
 }

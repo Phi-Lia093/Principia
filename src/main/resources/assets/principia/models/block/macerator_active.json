@@ -1,0 +1,12 @@
+{
+  "parent": "block/cube",
+  "textures": {
+    "particle": "principia:block/macerator_front_active",
+    "down": "principia:block/macerator_side",
+    "up": "principia:block/macerator_side",
+    "north": "principia:block/macerator_front_active",
+    "south": "principia:block/macerator_side",
+    "west": "principia:block/macerator_side",
+    "east": "principia:block/macerator_side"
+  }
+}
