@@ -203,7 +203,6 @@ public abstract class AbstractMachineBlockEntity extends BlockEntity implements 
         }
     }
 
-    @SuppressWarnings({"unchecked", "rawtypes"})
     protected static Optional<MachineRecipe> findRecipe(AbstractMachineBlockEntity entity) {
         if (entity.world == null) return Optional.empty();
 
