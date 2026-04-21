@@ -1,9 +1,7 @@
 package com.philia093.blocks.machines;
 
 import com.philia093.Principia;
-import com.philia093.blocks.MaceratorBlock;
-import com.philia093.blocks.MaceratorBlockEntity;
-import com.philia093.client.render.MaceratorScreenHandler;
+import com.philia093.client.render.machines.MaceratorScreenHandler;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;

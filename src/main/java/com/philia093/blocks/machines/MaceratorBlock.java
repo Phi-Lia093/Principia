@@ -1,8 +1,5 @@
-package com.philia093.blocks;
+package com.philia093.blocks.machines;
 
-import com.philia093.blocks.machines.AbstractMachineBlock;
-import com.philia093.blocks.machines.AbstractMachineBlockEntity;
-import com.philia093.blocks.machines.ModMachines;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityTicker;

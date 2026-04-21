@@ -1,4 +1,4 @@
-package com.philia093.blocks.machines;
+package com.philia093.recipes;
 
 import com.philia093.Principia;
 import com.google.gson.JsonArray;

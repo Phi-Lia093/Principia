@@ -2,8 +2,8 @@ package com.philia093;
 
 import com.philia093.blocks.ModBlocks;
 import com.philia093.blocks.machines.ModMachines;
-import com.philia093.blocks.machines.ModRecipeSerializers;
-import com.philia093.blocks.machines.ModRecipeTypes;
+import com.philia093.recipes.ModRecipeSerializers;
+import com.philia093.recipes.ModRecipeTypes;
 import com.philia093.util.ChemicalFormulaTooltip;
 import com.philia093.util.ModItemGroups;
 import com.philia093.items.ModItems;

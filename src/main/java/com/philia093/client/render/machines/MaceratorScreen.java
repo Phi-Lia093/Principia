@@ -1,4 +1,4 @@
-package com.philia093.client.render;
+package com.philia093.client.render.machines;
 
 import com.philia093.blocks.machines.AbstractMachineScreen;
 import net.minecraft.entity.player.PlayerInventory;

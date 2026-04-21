@@ -1,9 +1,7 @@
-package com.philia093.blocks;
+package com.philia093.blocks.machines;
 
-import com.philia093.blocks.machines.AbstractMachineBlockEntity;
-import com.philia093.blocks.machines.ModMachines;
-import com.philia093.blocks.machines.ModRecipeTypes;
-import com.philia093.client.render.MaceratorScreenHandler;
+import com.philia093.recipes.ModRecipeTypes;
+import com.philia093.client.render.machines.MaceratorScreenHandler;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

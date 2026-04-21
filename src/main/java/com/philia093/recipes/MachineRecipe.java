@@ -1,4 +1,4 @@
-package com.philia093.blocks.machines;
+package com.philia093.recipes;
 
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
