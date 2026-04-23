@@ -12,10 +12,10 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.philia093.Principia"
+          "com.philia093.principia.Principia"
 		],
 		"client": [
-			"com.philia093.client.PrincipiaClient"
+			"com.philia093.principia.client.PrincipiaClient"
 		]
 	},
 	"depends": {
@@ -23,5 +23,8 @@
 		"minecraft": "~1.20.1",
 		"java": ">=17",
 		"fabric-api": "*"
-	}
+	},
+	"mixins": [
+		"mixins.json"
+	]
 }
